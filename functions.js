@@ -18,6 +18,7 @@ const mathFunc = {
 }
 const replacements = {
     "pi":Math.PI,
+    "^": "*"
 }
 
 function calc(){
@@ -47,10 +48,29 @@ function Calculate(){
                 count+=1
             }
         }
+        console.log(count, keys.length)
     }
     console.log(x.substring(1))
     for (var rep of Object.keys(replacements)){
+        try{
+            parseInt(x[x.search("rep")-1])
+            x=x.replace(rep, "*"+replacements[rep])
+        }catch(err){}
         x=x.replace(rep, replacements[rep])
     }
+    console.log(x, x.substring(1))
     document.getElementById("value").innerHTML = eval(x.substring(1))
 }
+
+document.addEventListener("DOMContentLoaded", function(event){
+    const input = document.getElementById("equation")
+    input.addEventListener("keyup", function(event){
+    
+        if (event.keyCode == 13){
+            calc()
+        }else{
+            return
+        }
+    
+    })
+})
